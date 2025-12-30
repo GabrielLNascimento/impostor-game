@@ -5,7 +5,7 @@ const perguntas = {
         "Você prefere quente ou frio?",
         "Qual comida combina menos com isso?",
         "Você prefere comer com talheres ou com as mãos?",
-        "Qual animal poderia fazer uma propagando dessa comida na TV",
+        "Qual animal poderia fazer uma propaganda dessa comida na TV",
         "Essa comida poderia substituir qual parte de um esporte?",
         "Você comeria isso todos os dias ou só de vez em quando?",
         "Qual a parte favorita dessa sua comida?",
