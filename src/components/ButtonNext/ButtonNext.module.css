@@ -1,0 +1,31 @@
+.container {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.button {
+    pointer-events: auto;
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    color: white;
+    padding: 16px 36px;
+    border-radius: 999px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    transition: 0.2s ease;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}
+
+.button:active {
+    transform: scale(0.97);
+}
