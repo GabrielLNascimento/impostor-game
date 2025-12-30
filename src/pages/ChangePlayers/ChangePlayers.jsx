@@ -5,7 +5,7 @@ import ButtonNext from "../../components/ButtonNext/ButtonNext";
 
 const ChangePlayers = ({ jogadores, setJogadores }) => {
     const [players, setPlayers] = useState("");
-    console.log(jogadores);
+
     const addPlayer = (e) => {
         if (e.key === "Enter" && players.trim() !== "") {
             setJogadores([...jogadores, players.trim()]);

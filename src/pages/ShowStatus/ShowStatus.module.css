@@ -1,0 +1,48 @@
+/* ShowStatus.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    font-family: "Arial", sans-serif;
+    padding: 20px;
+}
+
+.container h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.container p {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.container button {
+    background-color: #ff4d4d;
+    border: none;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1rem;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.container button:hover {
+    background-color: #ff1a1a;
+    transform: scale(1.05);
+}
+
+.titleSecond {
+    margin-bottom: 0px;
+}

@@ -20,7 +20,7 @@ input {
 
 .containerPlayers {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     flex-wrap: wrap;
     gap: 12px;
     max-width: 80%;
