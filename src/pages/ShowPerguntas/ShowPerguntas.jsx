@@ -1,26 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ShowPerguntas.module.css";
 import perguntas from "../../db/perguntas.js";
 import randomFromArray from "../../utils/randomFromArray.js";
-
-// Sorteia N perguntas de forma não repetida
-const sortearPerguntasPorJogador = (perguntasDaCategoria, quantidade) => {
-    const usadas = [];
-    const resultado = [];
-    const copia = [...perguntasDaCategoria];
-    for (let i = 0; i < quantidade; i++) {
-        if (copia.length === 0) {
-            copia.push(...usadas);
-            usadas.length = 0;
-        }
-        const sorteada = randomFromArray(copia);
-        resultado.push(sorteada);
-        copia.splice(copia.indexOf(sorteada), 1);
-        usadas.push(sorteada);
-    }
-    return resultado;
-};
 
 const ShowPerguntas = ({
     jogadores,
@@ -30,14 +12,6 @@ const ShowPerguntas = ({
 }) => {
     const navigate = useNavigate();
 
-    // Inicializa perguntasPorJogador
-    const [perguntasPorJogador] = useState(() => {
-        const perguntasDaCategoria = perguntas[categoriaSelecionada] || [];
-        return jogadores.map(() =>
-            sortearPerguntasPorJogador(perguntasDaCategoria, 2)
-        );
-    });
-
     const [contadorPergunta, setContadorPergunta] = useState(() =>
         Array(jogadores.length).fill(0)
     );
@@ -46,44 +20,82 @@ const ShowPerguntas = ({
         Math.floor(Math.random() * jogadores.length)
     );
 
-    const handleNext = () => {
-        const currentPergunta =
-            perguntasPorJogador[currentPlayer][contadorPergunta[currentPlayer]];
+    const [perguntasJaMostradas, setPerguntasJaMostradas] = useState([]);
 
-        // Adiciona objeto { jogador, pergunta } no array de perguntasRespond
-        const novoPerguntasRespondidas = [...perguntasRespond];
-        novoPerguntasRespondidas.push({
-            jogador: jogadores[currentPlayer],
-            pergunta: currentPergunta,
-        });
+    const sortearPerguntaUnica = (perguntasDaCategoria, jaMostradas) => {
+        const disponiveis = perguntasDaCategoria.filter(
+            (p) => !jaMostradas.includes(p)
+        );
+        return disponiveis.length === 0 ? null : randomFromArray(disponiveis);
+    };
+
+    const handleNext = () => {
+        const perguntaSorteada = sortearPerguntaUnica(
+            perguntas[categoriaSelecionada],
+            perguntasJaMostradas
+        );
+
+        // Se acabarem as perguntas da categoria antes do limite de rodadas
+        if (!perguntaSorteada) {
+            navigate("/discussao");
+            return;
+        }
+
+        // 1. Atualiza o histórico de perguntas exibidas
+        setPerguntasJaMostradas((prev) => [...prev, perguntaSorteada]);
+
+        // 2. Registra a resposta vinculada ao jogador atual
+        const novoPerguntasRespondidas = [
+            ...perguntasRespond,
+            {
+                jogador: jogadores[currentPlayer],
+                pergunta: perguntaSorteada,
+            },
+        ];
         setPerguntaRespond(novoPerguntasRespondidas);
 
-        // Atualiza contador
+        // 3. Incrementa o contador do jogador que acabou de responder
         const novoContador = [...contadorPergunta];
         novoContador[currentPlayer] += 1;
         setContadorPergunta(novoContador);
 
-        // Próximo jogador que ainda tem perguntas
+        // 4. Verifica quais jogadores ainda não atingiram 2 perguntas
         const indicesDisponiveis = jogadores
             .map((_, idx) => idx)
             .filter((idx) => novoContador[idx] < 2);
 
+        // REGRA DE PULO: Se ninguém mais puder receber perguntas, finaliza
         if (indicesDisponiveis.length === 0) {
             navigate("/discussao");
             return;
         }
 
+        // 5. Sorteia o próximo jogador entre os que ainda restam
         setCurrentPlayer(randomFromArray(indicesDisponiveis));
     };
 
-    const currentPergunta =
-        perguntasPorJogador[currentPlayer][contadorPergunta[currentPlayer]];
+    useEffect(() => {
+        if (perguntasRespond.length === 0) {
+            handleNext();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const perguntaAtual = perguntasRespond[perguntasRespond.length - 1];
 
     return (
         <div className={styles.container}>
-            <h2>Pergunta para {jogadores[currentPlayer]}</h2>
-            <span className={styles.pergunta}>{currentPergunta}</span>
-            <button onClick={handleNext}>Próximo</button>
+            {perguntaAtual ? (
+                <>
+                    <h2>Pergunta para {jogadores[currentPlayer]}</h2>
+                    <span className={styles.pergunta}>
+                        {perguntaAtual.pergunta}
+                    </span>
+                    <button onClick={handleNext}>Próximo</button>
+                </>
+            ) : (
+                <p>Carregando...</p>
+            )}
         </div>
     );
 };
