@@ -29,73 +29,62 @@ const ShowPerguntas = ({
         return disponiveis.length === 0 ? null : randomFromArray(disponiveis);
     };
 
-    const handleNext = () => {
+    const executarRodada = (jogadorIndex, novoContador) => {
         const perguntaSorteada = sortearPerguntaUnica(
             perguntas[categoriaSelecionada],
             perguntasJaMostradas
         );
 
-        // Se acabarem as perguntas da categoria antes do limite de rodadas
         if (!perguntaSorteada) {
             navigate("/discussao");
             return;
         }
 
-        // 1. Atualiza o histórico de perguntas exibidas
         setPerguntasJaMostradas((prev) => [...prev, perguntaSorteada]);
 
-        // 2. Registra a resposta vinculada ao jogador atual
-        const novoPerguntasRespondidas = [
-            ...perguntasRespond,
+        setPerguntaRespond((prev) => [
+            ...prev,
             {
-                jogador: jogadores[currentPlayer],
+                jogador: jogadores[jogadorIndex],
                 pergunta: perguntaSorteada,
             },
-        ];
-        setPerguntaRespond(novoPerguntasRespondidas);
+        ]);
 
-        // 3. Incrementa o contador do jogador que acabou de responder
+        setContadorPergunta(novoContador);
+    };
+
+    useEffect(() => {
+        executarRodada(currentPlayer, [...contadorPergunta]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const handleNext = () => {
         const novoContador = [...contadorPergunta];
         novoContador[currentPlayer] += 1;
-        setContadorPergunta(novoContador);
 
-        // 4. Verifica quais jogadores ainda não atingiram 2 perguntas
         const indicesDisponiveis = jogadores
-            .map((_, idx) => idx)
-            .filter((idx) => novoContador[idx] < 2);
+            .map((_, i) => i)
+            .filter((i) => novoContador[i] < 2);
 
-        // REGRA DE PULO: Se ninguém mais puder receber perguntas, finaliza
         if (indicesDisponiveis.length === 0) {
             navigate("/discussao");
             return;
         }
 
-        // 5. Sorteia o próximo jogador entre os que ainda restam
-        setCurrentPlayer(randomFromArray(indicesDisponiveis));
+        const proximoJogador = randomFromArray(indicesDisponiveis);
+
+        setCurrentPlayer(proximoJogador);
+        executarRodada(proximoJogador, novoContador);
     };
 
-    useEffect(() => {
-        if (perguntasRespond.length === 0) {
-            handleNext();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const perguntaAtual = perguntasRespond[perguntasRespond.length - 1];
+    const perguntaAtual =
+        perguntasRespond[perguntasRespond.length - 1]?.pergunta || "";
 
     return (
         <div className={styles.container}>
-            {perguntaAtual ? (
-                <>
-                    <h2>Pergunta para {jogadores[currentPlayer]}</h2>
-                    <span className={styles.pergunta}>
-                        {perguntaAtual.pergunta}
-                    </span>
-                    <button onClick={handleNext}>Próximo</button>
-                </>
-            ) : (
-                <p>Carregando...</p>
-            )}
+            <h2>Pergunta para {jogadores[currentPlayer]}</h2>
+            <span className={styles.pergunta}>{perguntaAtual}</span>
+            <button onClick={handleNext}>Próximo</button>
         </div>
     );
 };

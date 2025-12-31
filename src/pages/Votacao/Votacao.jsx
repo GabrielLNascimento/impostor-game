@@ -69,11 +69,11 @@ const Votacao = ({ jogadores, impostor }) => {
 
     return (
         <div className={styles.container}>
-            <h2>Votação</h2>
+            <h2>Eu me chamo {currentPlayer}</h2>
 
             {!revelar ? (
                 <button onClick={handleRevelar}>
-                    Eu me chamo {currentPlayer}
+                    Votar
                 </button>
             ) : (
                 <>
