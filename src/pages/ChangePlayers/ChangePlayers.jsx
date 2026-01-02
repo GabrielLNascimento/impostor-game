@@ -1,6 +1,6 @@
 import styles from "./ChangePlayers.module.css";
 import { useState } from "react";
-
+import { Trash2 } from "lucide-react";
 import ButtonNext from "../../components/ButtonNext/ButtonNext";
 
 const ChangePlayers = ({ jogadores, setJogadores }) => {
@@ -13,9 +13,14 @@ const ChangePlayers = ({ jogadores, setJogadores }) => {
         }
     };
 
+    const deletePlayer = (indexToDelete) => {
+        const newList = jogadores.filter((_, index) => index !== indexToDelete);
+        setJogadores(newList);
+    };
+
     return (
         <div className={styles.container}>
-            <h1>Nome dos Jogadores</h1>
+            <h1 className={styles.title}>Nome dos Jogadores</h1>
 
             <input
                 type="text"
@@ -28,7 +33,15 @@ const ChangePlayers = ({ jogadores, setJogadores }) => {
             <div className={styles.containerPlayers}>
                 {jogadores.map((jogador, index) => (
                     <div key={index} className={styles.playerCard}>
-                        {jogador}
+                        <span className={styles.playerName}>{jogador}</span>
+
+                        <button
+                            className={styles.deleteBtn}
+                            onClick={() => deletePlayer(index)}
+                            aria-label="Remover jogador"
+                        >
+                            <Trash2 />
+                        </button>
                     </div>
                 ))}
             </div>

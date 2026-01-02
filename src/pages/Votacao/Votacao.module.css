@@ -29,7 +29,7 @@ p {
     justify-content: center;
 }
 
-button {
+.btnVote {
     background-color: #fff;
     color: #6c63ff;
     font-weight: 600;
@@ -42,7 +42,7 @@ button {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-button:hover {
+.btnVote:hover {
     background-color: #6c63ff;
     color: #fff;
     transform: translateY(-3px);

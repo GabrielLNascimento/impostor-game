@@ -10,12 +10,13 @@
 
 .button {
     pointer-events: auto;
-    background: linear-gradient(135deg, #7c3aed, #2563eb);
-    color: white;
+    background: linear-gradient(135deg, #9fc131, #dbf227);
+    color: #042940;
     padding: 16px 36px;
     border-radius: 999px;
+    font-family: "Google Sans", sans-serif;
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: bolder;
     text-decoration: none;
     letter-spacing: 0.5px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);

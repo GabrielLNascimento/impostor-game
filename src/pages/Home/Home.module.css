@@ -1,10 +1,8 @@
 .container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #4b0082, #1e3a8a);
     display: flex;
     flex-direction: column;
     color: white;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* TÍTULO NO TOPO */
@@ -12,7 +10,8 @@
     text-align: center;
     font-size: 3rem;
     padding: 30px 0;
-    text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.678);
+    color: var(--text-light);
 }
 
 /* CONTEÚDO CENTRAL */
@@ -23,24 +22,70 @@
     align-items: center;
 }
 
-.content button {
-    padding: 15px 50px;
-    font-size: 1.2rem;
+.content .btnHome {
+    padding: clamp(14px, 3vw, 20px) clamp(44px, 8vw, 70px);
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
     border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    border-radius: 16px;
+    background: linear-gradient(
+        135deg,
+        var(--color-accent),
+        var(--color-highlight)
+    );
     color: white;
     cursor: pointer;
-    transition: 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    transition: 
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    position: relative;
 }
 
-.content button:hover {
-    transform: scale(1.08);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+.content .btnHome::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.35),
+        transparent 60%
+    );
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.content .btnHome:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 16px 35px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    filter: brightness(1.05);
+}
+
+.content .btnHome:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 
+        0 8px 18px rgba(0, 0, 0, 0.35),
+        inset 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .linkbtn {
-    color: white;
+    color: #F4FBEA;
     text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 3.8rem;
+    }
+
+    .content button {
+        font-size: 1.6rem;
+        padding: 22px 70px;
+        border-radius: 16px;
+    }
 }

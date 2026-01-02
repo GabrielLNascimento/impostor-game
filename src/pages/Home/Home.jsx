@@ -7,7 +7,7 @@ const Home = () => {
             <h1 className={styles.title}>Game of the Impostor</h1>
 
             <div className={styles.content}>
-                <button>
+                <button className={styles.btnHome}>
                     <Link to="/changeplayers" className={styles.linkbtn}>Jogar</Link>
                 </button>
             </div>

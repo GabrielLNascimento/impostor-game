@@ -83,6 +83,7 @@ const Votacao = ({ jogadores, impostor }) => {
                             <button
                                 key={idx}
                                 onClick={() => handleVotar(jogador)}
+                                className={styles.btnVote}
                             >
                                 Eu escolho {jogador}
                             </button>

@@ -1,0 +1,44 @@
+:root {
+    /* 🎨 CORES PRINCIPAIS */
+    --color-primary: #042940;
+    --color-secondary: #005c53;
+    --color-accent: #9fc131;
+    --color-highlight: #dbf227;
+    --color-soft: #d6d58e;
+
+    /* 🖤 NEUTROS */
+    --color-dark: #021f2d;
+    --color-dark-soft: #053a52;
+    --color-light: #f5f7f8;
+    --color-white: #ffffff;
+    --color-gray: #9ca3af;
+    --color-border: #d1d5db;
+
+    /* 🚦 ESTADOS */
+    --color-success: #22c55e;
+    --color-warning: #facc15;
+    --color-danger: #ef4444;
+    --color-info: #38bdf8;
+
+    /* 🧱 FUNDO */
+    --bg-main: linear-gradient(135deg, #042940, #005c53);
+    --bg-card: #053a52;
+    --bg-soft: #0b4a63;
+
+    /* 🧾 TEXTO */
+    --text-primary: #dbf227;
+    --text-secondary: #d6d58e;
+    --text-dark: #042940;
+    --text-light: #f5f7f8;
+
+    /* 🧮 TAMANHOS */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+    --transition: 0.3s ease;
+}
