@@ -82,7 +82,12 @@ const ShowPerguntas = ({
 
     return (
         <div className={styles.container}>
-            <h2>Pergunta para {jogadores[currentPlayer]}</h2>
+            <div>
+                <h2>Pergunta para </h2>
+                <h2 className={styles.titleName}>
+                    {jogadores[currentPlayer]}
+                </h2>
+            </div>
             <span className={styles.pergunta}>{perguntaAtual}</span>
             <button onClick={handleNext}>Próximo</button>
         </div>

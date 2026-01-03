@@ -51,11 +51,13 @@ const ShowStatus = ({
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.titleSecond}>Mostre o telefone para</h2>
-            <h2>{currentPlayer}</h2>
+            <div>
+                <h2 className={styles.titleSecond}>Mostre o telefone para</h2>
+                <h2 className={styles.titleName}>{currentPlayer}</h2>
+            </div>
 
             {!revealed ? (
-                <button onClick={() => setRevealed(true)}>
+                <button onClick={() => setRevealed(true)} className={styles.btnRevelar}>
                     Toque para revelar
                 </button>
             ) : (
@@ -65,7 +67,7 @@ const ShowStatus = ({
                             ? "Você é o IMPOSITOR 👀"
                             : `${palavra}`}
                     </p>
-                    <button onClick={handleNext}>Próximo</button>
+                    <button onClick={handleNext} className={styles.btnProximo}>Próximo</button>
                 </>
             )}
         </div>
