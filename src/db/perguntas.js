@@ -1,5 +1,5 @@
 const perguntas = {
-    "Comidas": [
+    Comidas: [
         "Você comeria essa comida com sorvete?",
         "Se essa comida lhe desse um poder, qual seria?",
         "Você prefere quente ou frio?",
@@ -25,8 +25,46 @@ const perguntas = {
         "Essa comida está na sua lista de top 10 alimentos?",
         "Você comeria essa comida no café da manhã?",
         "Que tipo de evento essa comida não pode ser servido?",
-        "Quem dos jogadores parece gostar mais dessa comida?"
-    ]
-}
+        "Quem dos jogadores parece gostar mais dessa comida?",
+        "Essa comida combina mais com festa ou com velório?",
+        "Qual emoji representa melhor essa comida?",
+        "Essa comida parece mais de rico ou de pobre?",
+        "Se essa comida falasse, o que ela reclamaria?",
+        "Essa comida é mais provável te salvar ou te matar?",
+        "Se você derrubasse isso no chão, ainda comeria?",
+        "Essa comida teria inveja de qual outra comida?",
+    ],
+    Locais: [
+        "Em troca de 20 mil reais, você moraria nesse lugar?",
+        "Você levaria sua mãe para esse lugar?",
+        "Você sobreviveria uma semana nesse lugar?",
+        "Que tipo de pessoa frequenta esse lugar?",
+        "Que filme deveria ser gravado nesse lugar?",
+        "Poderia fazer um ótimo encontro nesse lugar?",
+        "Você gostaria de trabalhar nesse lugar?",
+        "Que tipo de crime poderia ser cometido nesse lugar?",
+        "Qual personagem lembra desse lugar?",
+        "Você pisaria nesse lugar descalço?",
+        "Que emoji representa esse lugar?",
+        "Você descobre que vai trabalhar nesse lugar pelo resto da sua vida, como você reagiria",
+        "Você visitaria esse lugar sozinho à noite?",
+        "Estando nesse lugar, o que faz se está apurado para fazer xixi?",
+        "Você conseguiria dormir tranquilo nesse lugar?",
+        "Esse lugar teria Wi-Fi?",
+        "Você ficaria entediado nesse lugar?",
+        "Você levaria seu cachorro para esse lugar?",
+        "Esse lugar é mais quente ou frio?",
+        "Você ficaria aí preso por 24 horas?",
+        "Você passaria uma noite sozinho aí?",
+        "Qual animal moraria nesse lugar?",
+        "Você ficaria surpreso se alguém estivesse tomando sorvete nesse lugar?",
+        "Você ficaria surpreso se alguém estivesse passeando com o cachorro nesse lugar?",
+        "Você ficaria surpreso se alguém estivesse com uma arma nesse lugar?",
+        "Você ficaria surpreso se alguém estivesse com um baralho de truco nesse lugar?",
+        "Você já visitou esse lugar nos últimos 3 meses?",
+        "Você gostaria de ir para esse lugar todos os dias ou de vez em quando?",
+        "Nesse lugar, você vai por obrigação ou por que você gosta de ir?",
+    ],
+};
 
-export default perguntas
+export default perguntas;
