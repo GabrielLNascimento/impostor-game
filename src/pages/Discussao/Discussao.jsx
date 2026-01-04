@@ -21,19 +21,19 @@ const Discussao = ({ perguntasRespond, jogadores }) => {
             <div className={styles.cardsContainer}>
                 {jogadores.map((jogador, idx) => (
                     <div key={idx} className={styles.card}>
-                        <h2>{jogador}</h2>
-                        <ul>
+                        <h2 className={styles.titlePlayer}>{jogador}</h2>
+                      
                             {perguntasPorJogador[jogador] &&
                             perguntasPorJogador[jogador].length > 0 ? (
                                 perguntasPorJogador[jogador].map(
                                     (pergunta, pIdx) => (
-                                        <li key={pIdx}>{pergunta}</li>
+                                        <span key={pIdx}>{pergunta}</span>
                                     )
                                 )
                             ) : (
-                                <li>Nenhuma pergunta respondida</li>
+                                <span>Nenhuma pergunta respondida</span>
                             )}
-                        </ul>
+                        
                     </div>
                 ))}
             </div>

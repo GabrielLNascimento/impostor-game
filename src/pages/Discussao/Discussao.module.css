@@ -25,6 +25,8 @@
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12);
     color: var(--color-primary);
     font-weight: 700;
+
+    padding-bottom: 20px;
 }
 
 .card h2 {
@@ -32,13 +34,22 @@
     font-size: 18px;
 }
 
-.card ul {
-    margin: 0;
-}
-
-.card li {
+.card span {
+    font-family: "Google Sans", sans-serif;
+    font-weight: 700;
     font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.titlePlayer {
+    text-align: left;
+    padding: 6px 20px 6px 20px;
+    background-color: #4c5c16;
+    width: fit-content;
+    color: white;
+    border-radius: 10px 0px 10px 0px;
 }

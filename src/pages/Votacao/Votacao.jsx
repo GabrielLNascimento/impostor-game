@@ -60,7 +60,7 @@ const Votacao = ({ jogadores, impostor }) => {
 
                 {mostrarImpostor && (
                     <p className={styles.impostorRevelado}>
-                        O impostor é: <strong>{impostor}</strong> 
+                        {impostor}
                     </p>
                 )}
             </div>
@@ -69,10 +69,10 @@ const Votacao = ({ jogadores, impostor }) => {
 
     return (
         <div className={styles.container}>
-            <h2>Eu me chamo {currentPlayer}</h2>
+            <h2 className={styles.titleVote}>Eu me chamo {currentPlayer}</h2>
 
             {!revelar ? (
-                <button onClick={handleRevelar}>
+                <button onClick={handleRevelar} className={styles.btnVote}>
                     Votar
                 </button>
             ) : (
@@ -83,9 +83,9 @@ const Votacao = ({ jogadores, impostor }) => {
                             <button
                                 key={idx}
                                 onClick={() => handleVotar(jogador)}
-                                className={styles.btnVote}
+                                className={styles.btnVotePlayer}
                             >
-                                Eu escolho {jogador}
+                                {jogador}
                             </button>
                         ))}
                     </div>
