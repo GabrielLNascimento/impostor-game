@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 // pages
@@ -9,13 +9,42 @@ import ShowStatus from "./pages/ShowStatus/ShowStatus.jsx";
 import ShowPerguntas from "./pages/ShowPerguntas/ShowPerguntas.jsx";
 import Discussao from "./pages/Discussao/Discussao.jsx";
 import Votacao from "./pages/Votacao/Votacao.jsx";
+import AdivinhaPalavra from "./pages/AdivinhaPalavra/AdivinhaPalavra.jsx";
+import Placar from "./pages/Placar/Placar.jsx";
 
 const App = () => {
+    const navigate = useNavigate();
     const [jogadores, setJogadores] = useState([]);
     const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
     const [impostor, setImpostor] = useState("");
     const [palavra, setPalavra] = useState("");
     const [perguntasRespond, setPerguntaRespond] = useState([]);
+    const [pontos, setPontos] = useState({});
+    const [rodadas, setRodadas] = useState(1);
+
+    const recomeçarJogo = () => {
+        if (rodadas >= 5) return;
+
+        setPontos({});
+        setImpostor("");
+        setPalavra("");
+        setPerguntaRespond([]);
+        setCategoriaSelecionada("");
+        setRodadas(1)
+        
+
+        navigate("/changeplayers");
+    };
+
+    const proximaRodada = () => {
+        setImpostor("");
+        setPalavra("");
+        setPerguntaRespond([]);
+        setCategoriaSelecionada("");
+        setRodadas((prev) => prev + 1);
+
+        navigate("/changecategoria");
+    };
 
     return (
         <>
@@ -27,6 +56,7 @@ const App = () => {
                         <ChangePlayers
                             jogadores={jogadores}
                             setJogadores={setJogadores}
+                            setPontos={setPontos}
                         />
                     }
                 />
@@ -75,7 +105,38 @@ const App = () => {
                 />
                 <Route
                     path="/votacao"
-                    element={<Votacao jogadores={jogadores} impostor={impostor} />}
+                    element={
+                        <Votacao
+                            jogadores={jogadores}
+                            impostor={impostor}
+                            pontos={pontos}
+                            setPontos={setPontos}
+                        />
+                    }
+                />
+                <Route
+                    path="/adivinha"
+                    element={
+                        <AdivinhaPalavra
+                            palavraCorreta={palavra}
+                            categoriaSelecionada={categoriaSelecionada}
+                            impostor={impostor}
+                            pontos={pontos}
+                            setPontos={setPontos}
+                        />
+                    }
+                />
+                <Route
+                    path="/placar"
+                    element={
+                        <Placar
+                            jogadores={jogadores}
+                            pontos={pontos}
+                            rodadas={rodadas}
+                            recomeçarJogo={recomeçarJogo}
+                            proximaRodada={proximaRodada}
+                        />
+                    }
                 />
             </Routes>
         </>

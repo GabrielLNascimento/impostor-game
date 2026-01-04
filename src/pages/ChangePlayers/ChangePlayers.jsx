@@ -1,9 +1,9 @@
 import styles from "./ChangePlayers.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Trash2 } from "lucide-react";
 import ButtonNext from "../../components/ButtonNext/ButtonNext";
 
-const ChangePlayers = ({ jogadores, setJogadores }) => {
+const ChangePlayers = ({ jogadores, setJogadores, setPontos }) => {
     const [players, setPlayers] = useState("");
 
     const addPlayer = (e) => {
@@ -17,6 +17,19 @@ const ChangePlayers = ({ jogadores, setJogadores }) => {
         const newList = jogadores.filter((_, index) => index !== indexToDelete);
         setJogadores(newList);
     };
+
+    useEffect(() => {
+        setPontos((prevPontos) => {
+            const newPontos = {};
+
+            jogadores.forEach((jogador) => {
+                newPontos[jogador] = prevPontos[jogador] ?? 0;
+            });
+
+            return newPontos;
+        });
+    }, [jogadores, setPontos]);
+
 
     return (
         <div className={styles.container}>

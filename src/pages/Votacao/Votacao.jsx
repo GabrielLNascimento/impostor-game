@@ -1,68 +1,108 @@
 import { useState } from "react";
 import styles from "./Votacao.module.css";
+import ButtonNext from '../../components/ButtonNext/ButtonNext.jsx'
 
-const Votacao = ({ jogadores, impostor }) => {
+const Votacao = ({ jogadores, impostor, pontos, setPontos }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [votos, setVotos] = useState([]);
     const [revelar, setRevelar] = useState(false);
     const [finalizado, setFinalizado] = useState(false);
     const [mostrarImpostor, setMostrarImpostor] = useState(false);
 
+    console.log(pontos);
+
     if (jogadores.length === 0) return <div>Nenhum jogador</div>;
 
     const currentPlayer = jogadores[currentIndex];
     const outrosJogadores = jogadores.filter((j) => j !== currentPlayer);
 
-    const handleRevelar = () => setRevelar(true);
+    function handleRevelar() {
+        setRevelar(true);
+    }
 
-    const handleVotar = (votado) => {
-        setVotos([
+    function calcularResultado(listaVotos) {
+        const contagem = {};
+
+        listaVotos.forEach((v) => {
+            contagem[v.votouEm] = (contagem[v.votouEm] || 0) + 1;
+        });
+
+        const maior = Math.max(...Object.values(contagem));
+        const maisVotado = Object.keys(contagem).filter(
+            (nome) => contagem[nome] === maior
+        );
+
+        return { maisVotado };
+    }
+
+    function aplicarPontuacao(listaVotos) {
+        if (!Array.isArray(listaVotos)) return;
+
+        setPontos((prev) => {
+            const novo = { ...prev };
+
+            listaVotos.forEach((voto) => {
+                if (voto.votouEm === impostor) {
+                    novo[voto.quemVotou] += 1;
+                }
+            });
+
+            return novo;
+        });
+    }
+
+    function handleVotar(jogadorVotado) {
+        const novosVotos = [
             ...votos,
-            { jogadorQueVotou: currentPlayer, jogadorVotado: votado },
-        ]);
+            { quemVotou: currentPlayer, votouEm: jogadorVotado },
+        ];
+
+        setVotos(novosVotos);
         setRevelar(false);
 
-        if (currentIndex + 1 < jogadores.length) {
-            setCurrentIndex(currentIndex + 1);
+        const proximoIndex = currentIndex + 1;
+
+        if (proximoIndex < jogadores.length) {
+            setCurrentIndex(proximoIndex);
         } else {
+            aplicarPontuacao(novosVotos);
             setFinalizado(true);
         }
-    };
-
-    const calcularMaisVotado = () => {
-        const contagem = {};
-        votos.forEach(({ jogadorVotado }) => {
-            contagem[jogadorVotado] = (contagem[jogadorVotado] || 0) + 1;
-        });
-        const maxVotos = Math.max(...Object.values(contagem));
-        const maisVotado = Object.keys(contagem).filter(
-            (j) => contagem[j] === maxVotos
-        );
-        return { maisVotado, maxVotos };
-    };
+    }
 
     if (finalizado) {
-        const resultado = calcularMaisVotado();
+        const resultado = calcularResultado(votos);
+
         return (
-            <div className={styles.container}>
-                <h2>Votação finalizada!</h2>
-                <p>
-                    Maioria votou em:{" "}
-                    <strong>{resultado.maisVotado.join(", ")}</strong>
-                </p>
-
-                <button
-                    onClick={() => setMostrarImpostor(!mostrarImpostor)}
-                    className={styles.impostorButton}
-                >
-                    {mostrarImpostor ? "Ocultar Impostor" : "Revelar Impostor"}
-                </button>
-
-                {mostrarImpostor && (
-                    <p className={styles.impostorRevelado}>
-                        {impostor}
+            <div className={styles.containerVote}>
+                <div>
+                    <h2>Votação Finalizada</h2>
+                    <p>
+                        Jogadores votaram em:{" "}
+                        <strong>{resultado.maisVotado.join(", ")}</strong>
                     </p>
-                )}
+                    <button
+                        onClick={() => setMostrarImpostor(!mostrarImpostor)}
+                        className={styles.impostorButton}
+                    >
+                        {mostrarImpostor
+                            ? "Ocultar Impostor"
+                            : "Revelar Impostor"}
+                    </button>
+                </div>
+
+                <div>
+
+                    {mostrarImpostor && (
+                        <p className={styles.impostorRevelado}>{impostor}</p>
+                    )}
+                </div>
+
+                <div>
+                    {mostrarImpostor && (
+                        <ButtonNext to="/adivinha" text="Próximo" />
+                    )}
+                </div>
             </div>
         );
     }
@@ -78,10 +118,11 @@ const Votacao = ({ jogadores, impostor }) => {
             ) : (
                 <>
                     <p>Escolha em quem votar:</p>
+
                     <div className={styles.buttonsContainer}>
-                        {outrosJogadores.map((jogador, idx) => (
+                        {outrosJogadores.map((jogador) => (
                             <button
-                                key={idx}
+                                key={jogador}
                                 onClick={() => handleVotar(jogador)}
                                 className={styles.btnVotePlayer}
                             >

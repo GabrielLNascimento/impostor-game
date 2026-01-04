@@ -1,0 +1,139 @@
+.header {
+    flex: 0 0 auto;
+}
+
+.meio {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer {
+    text-align: center;
+    margin: auto;
+    flex: 0 0 auto;
+}
+
+/* Título */
+.containerOpcoes h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+/* Opções */
+.opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.opcoes button {
+    padding: 14px 10px;
+    border-radius: 14px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    background: #1e88e5;
+    color: white;
+    cursor: pointer;
+    transition: 0.25s;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.opcoes button:hover {
+    transform: translateY(-3px) scale(1.03);
+    background: #42a5f5;
+}
+
+.opcoes button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Selecionado */
+.selecionado {
+    outline: 3px solid #ffd700;
+    background: #1565c0;
+}
+
+/* Botão Próximo */
+.proximo {
+    margin-top: 35px;
+    padding: 14px 40px;
+    border-radius: 30px;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #00e676, #00c853);
+    color: black;
+    cursor: pointer;
+    transition: 0.25s;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.35);
+}
+
+.proximo:hover {
+    transform: scale(1.08);
+}
+
+/* Resultado */
+.resultado {
+    background-color: var(--color-primary);
+    width: fit-content;
+    margin: auto;
+    color: white;
+    margin-top: 40px;
+    padding: 10px 30px;
+    border-radius: 15px;
+    font-family: "Google Sans";
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 0 12px rgba(0,0,0,0.8);
+    animation: aparecer 0.4s ease-out;
+}
+
+@keyframes aparecer {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+    .container h1 {
+        font-size: 2rem;
+    }
+
+    .proximo {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+.correta {
+    background: #00e676 !important;
+    color: black;
+    box-shadow: 0 0 20px rgba(0,255,0,0.7);
+}
+
+.errada {
+    background: #ff1744 !important;
+    color: white;
+    box-shadow: 0 0 20px rgba(255,0,0,0.7);
+}
+
+.containerOpcoes.acertou {
+    background: linear-gradient(145deg, #0f8a3b, #0fb14c);
+}
+
+.containerOpcoes.errou {
+    background: linear-gradient(145deg, #7a0f1d, #c62828);
+}

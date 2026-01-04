@@ -1,13 +1,21 @@
-.container {
+.container,
+.containerVote {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
     min-height: 100vh;
     padding: 2rem;
     font-family: "Poppins", sans-serif;
     color: #fff;
     text-align: center;
+}
+
+.container {
+    justify-content: flex-start;
+}
+
+.containerVote {
+    justify-content: space-between;
 }
 
 h2 {
@@ -28,7 +36,8 @@ p {
     justify-content: center;
 }
 
-.btnVote, .btnVotePlayer {
+.btnVote,
+.btnVotePlayer {
     padding: 16px 50px;
     font-size: 1.2rem;
     border: none;
@@ -46,8 +55,6 @@ p {
 
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
-
-    
 }
 
 .btnVotePlayer {
@@ -75,11 +82,7 @@ li {
     border: none;
     border-radius: 14px;
 
-    background: linear-gradient(
-        135deg,
-        #ff4b4b,
-        #ff1f1f
-    );
+    background: linear-gradient(135deg, #ff4b4b, #ff1f1f);
 
     color: white;
     cursor: pointer;
@@ -92,7 +95,12 @@ li {
 }
 
 .impostorRevelado {
-    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    width: max-content;
 
     font-size: clamp(2.2rem, 5vw, 3.2rem);
     font-weight: 700;
@@ -104,15 +112,13 @@ li {
     padding: 1.2rem 2rem;
     border-radius: 16px;
 
-    text-shadow:
-        2px 2px 6px rgba(0, 0, 0, 0.9);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
 
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.45);
-
-    max-width: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
 }
 
 .titleVote {
     font-family: "Cinzel", serif;
 }
+
+

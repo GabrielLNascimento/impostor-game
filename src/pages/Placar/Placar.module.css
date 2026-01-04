@@ -1,0 +1,80 @@
+.container {
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.lista {
+    width: 100%;
+    max-width: 400px;
+}
+
+.item {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    
+    font-size: 2rem;
+    font-family: "Google Sans";
+    font-weight: 800;
+}
+
+.pontos {
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.botao {
+    margin-top: auto;
+    padding: 14px 40px;
+    border-radius: 30px;
+    border: none;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, var(--color-accent), var(--color-highlight));
+    color: black;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.botoes {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.reset {
+    padding: 14px 30px;
+    border-radius: 30px;
+    border: none;
+    font-size: 1.1rem;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.reset:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.limite {
+    margin-top: 20px;
+    color: #ff8a80;
+}
+
+.rodada {
+    font-family: "Google Sans";
+}

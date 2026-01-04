@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./ShowPerguntas.module.css";
 import perguntas from "../../db/perguntas.js";
@@ -11,6 +11,7 @@ const ShowPerguntas = ({
     setPerguntaRespond,
 }) => {
     const navigate = useNavigate();
+    const iniciou = useRef(false);
 
     const [contadorPergunta, setContadorPergunta] = useState(() =>
         Array(jogadores.length).fill(0)
@@ -54,6 +55,8 @@ const ShowPerguntas = ({
     };
 
     useEffect(() => {
+        if (iniciou.current) return;
+        iniciou.current = true;
         executarRodada(currentPlayer, [...contadorPergunta]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -84,9 +87,7 @@ const ShowPerguntas = ({
         <div className={styles.container}>
             <div>
                 <h2>Pergunta para </h2>
-                <h2 className={styles.titleName}>
-                    {jogadores[currentPlayer]}
-                </h2>
+                <h2 className={styles.titleName}>{jogadores[currentPlayer]}</h2>
             </div>
             <span className={styles.pergunta}>{perguntaAtual}</span>
             <button onClick={handleNext}>Próximo</button>
