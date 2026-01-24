@@ -1,16 +1,36 @@
-# React + Vite
+# 🎭 Impostor Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Impostor Game** é um jogo web desenvolvido em **React**, onde os jogadores precisam descobrir quem é o impostor antes que seja tarde demais.  
+O projeto foi criado com foco em praticar **componentização, estados, lógica de jogo e interações dinâmicas**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Acesse o jogo
 
-## React Compiler
+👉 **https://impostor-game-plum.vercel.app/**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Tecnologias Utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React.js
+- JavaScript (ES6+)
+- HTML5
+- CSS3
+- Vercel (deploy)
+- Git & GitHub
+
+---
+
+## 📂 Estrutura do Projeto
+
+```bash
+📁 impostor-game
+ ┣ 📁 src
+ ┃ ┣ 📁 components
+ ┃ ┣ 📁 pages
+ ┃ ┣ 📄 App.jsx
+ ┃ ┗ 📄 main.jsx
+ ┣ 📁 public
+ ┣ 📄 package.json
+ ┣ 📄 README.md
