@@ -19,17 +19,24 @@ const ShowStatus = ({
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!impostor) {
-            const impostorRandom = randomFromArray(jogadores);
+        let impostorEscolhido = impostor;
 
-            setImpostor(impostorRandom);
+        if (!impostorEscolhido) {
+            impostorEscolhido = randomFromArray(jogadores);
+            setImpostor(impostorEscolhido);
         }
 
         if (!palavra && categoriaSelecionada) {
-            const palavrasDaCategoria = palavras[categoriaSelecionada];
-            if (palavrasDaCategoria && palavrasDaCategoria.length > 0) {
-                const palavraSorteada = randomFromArray(palavrasDaCategoria);
-                setPalavra(palavraSorteada);
+            if (categoriaSelecionada === "Jogadores") {
+                const disponiveis = jogadores.filter(j => j !== impostorEscolhido);
+                const sorteada = randomFromArray(disponiveis);
+                if (sorteada) setPalavra(sorteada);
+            } else {
+                const palavrasDaCategoria = palavras[categoriaSelecionada];
+                if (palavrasDaCategoria && palavrasDaCategoria.length > 0) {
+                    const palavraSorteada = randomFromArray(palavrasDaCategoria);
+                    setPalavra(palavraSorteada);
+                }
             }
         }
     });

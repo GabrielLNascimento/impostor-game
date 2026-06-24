@@ -12,10 +12,10 @@ function embaralhar(array) {
     return copia;
 }
 
-function gerarOpcoes(palavraCorreta, categoriaSelecionada) {
+function gerarOpcoes(palavraCorreta, categoriaSelecionada, jogadores) {
     if (!palavraCorreta || !categoriaSelecionada) return [];
 
-    const banco = palavrasDB[categoriaSelecionada];
+    const banco = categoriaSelecionada === "Jogadores" ? jogadores : palavrasDB[categoriaSelecionada];
     const falsas = banco.filter((p) => p !== palavraCorreta);
 
     const escolhidas = embaralhar(falsas).slice(0, 4);
@@ -28,9 +28,10 @@ const AdivinhaPalavra = ({
     impostor,
     pontos,
     setPontos,
+    jogadores,
 }) => {
     const [opcoes] = useState(() =>
-        gerarOpcoes(palavraCorreta, categoriaSelecionada)
+        gerarOpcoes(palavraCorreta, categoriaSelecionada, jogadores)
     );
     const navigate = useNavigate()
     const [escolha, setEscolha] = useState(null);

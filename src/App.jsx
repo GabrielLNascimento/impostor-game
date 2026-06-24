@@ -123,6 +123,7 @@ const App = () => {
                             impostor={impostor}
                             pontos={pontos}
                             setPontos={setPontos}
+                            jogadores={jogadores}
                         />
                     }
                 />

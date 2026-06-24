@@ -1,6 +1,7 @@
 const categorias = [
     "Comidas",
-    "Locais"
+    "Locais",
+    "Jogadores"
 ];
 
 export default categorias;
