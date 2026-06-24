@@ -9,6 +9,7 @@ const ShowPerguntas = ({
     categoriaSelecionada,
     perguntasRespond,
     setPerguntaRespond,
+    qtdPerguntas,
 }) => {
     const navigate = useNavigate();
     const iniciou = useRef(false);
@@ -67,7 +68,7 @@ const ShowPerguntas = ({
 
         const indicesDisponiveis = jogadores
             .map((_, i) => i)
-            .filter((i) => novoContador[i] < 2);
+            .filter((i) => novoContador[i] < qtdPerguntas);
 
         if (indicesDisponiveis.length === 0) {
             navigate("/discussao");

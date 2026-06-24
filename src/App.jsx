@@ -1,9 +1,9 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-// pages
 import Home from "./pages/Home/Home.jsx";
 import ChangePlayers from "./pages/ChangePlayers/ChangePlayers.jsx";
+import ConfigGame from "./pages/ConfigGame/ConfigGame.jsx";
 import ChangeCategoria from "./pages/ChangeCategoria/ChangeCategoria.jsx";
 import ShowStatus from "./pages/ShowStatus/ShowStatus.jsx";
 import ShowPerguntas from "./pages/ShowPerguntas/ShowPerguntas.jsx";
@@ -16,28 +16,29 @@ const App = () => {
     const navigate = useNavigate();
     const [jogadores, setJogadores] = useState([]);
     const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
-    const [impostor, setImpostor] = useState("");
+    const [impostores, setImpostores] = useState([]);
     const [palavra, setPalavra] = useState("");
     const [perguntasRespond, setPerguntaRespond] = useState([]);
     const [pontos, setPontos] = useState({});
     const [rodadas, setRodadas] = useState(1);
+    const [qtdImpostores, setQtdImpostores] = useState(1);
+    const [qtdPerguntas, setQtdPerguntas] = useState(2);
 
     const recomeçarJogo = () => {
         if (rodadas >= 5) return;
 
         setPontos({});
-        setImpostor("");
+        setImpostores([]);
         setPalavra("");
         setPerguntaRespond([]);
         setCategoriaSelecionada("");
-        setRodadas(1)
-        
+        setRodadas(1);
 
         navigate("/changeplayers");
     };
 
     const proximaRodada = () => {
-        setImpostor("");
+        setImpostores([]);
         setPalavra("");
         setPerguntaRespond([]);
         setCategoriaSelecionada("");
@@ -61,6 +62,18 @@ const App = () => {
                     }
                 />
                 <Route
+                    path="/config"
+                    element={
+                        <ConfigGame
+                            jogadores={jogadores}
+                            qtdImpostores={qtdImpostores}
+                            setQtdImpostores={setQtdImpostores}
+                            qtdPerguntas={qtdPerguntas}
+                            setQtdPerguntas={setQtdPerguntas}
+                        />
+                    }
+                />
+                <Route
                     path="/changecategoria"
                     element={
                         <ChangeCategoria
@@ -73,12 +86,13 @@ const App = () => {
                     path="/showstatus"
                     element={
                         <ShowStatus
-                            impostor={impostor}
-                            setImpostor={setImpostor}
+                            impostores={impostores}
+                            setImpostores={setImpostores}
                             jogadores={jogadores}
                             palavra={palavra}
                             setPalavra={setPalavra}
                             categoriaSelecionada={categoriaSelecionada}
+                            qtdImpostores={qtdImpostores}
                         />
                     }
                 />
@@ -87,10 +101,10 @@ const App = () => {
                     element={
                         <ShowPerguntas
                             jogadores={jogadores}
-                            impostor={impostor}
                             categoriaSelecionada={categoriaSelecionada}
                             perguntasRespond={perguntasRespond}
                             setPerguntaRespond={setPerguntaRespond}
+                            qtdPerguntas={qtdPerguntas}
                         />
                     }
                 />
@@ -108,9 +122,10 @@ const App = () => {
                     element={
                         <Votacao
                             jogadores={jogadores}
-                            impostor={impostor}
+                            impostores={impostores}
                             pontos={pontos}
                             setPontos={setPontos}
+                            qtdImpostores={qtdImpostores}
                         />
                     }
                 />
@@ -120,7 +135,7 @@ const App = () => {
                         <AdivinhaPalavra
                             palavraCorreta={palavra}
                             categoriaSelecionada={categoriaSelecionada}
-                            impostor={impostor}
+                            impostores={impostores}
                             pontos={pontos}
                             setPontos={setPontos}
                             jogadores={jogadores}

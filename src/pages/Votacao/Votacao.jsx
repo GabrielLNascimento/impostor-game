@@ -2,12 +2,14 @@ import { useState } from "react";
 import styles from "./Votacao.module.css";
 import ButtonNext from '../../components/ButtonNext/ButtonNext.jsx'
 
-const Votacao = ({ jogadores, impostor, pontos, setPontos }) => {
+const Votacao = ({ jogadores, impostores, pontos, setPontos, qtdImpostores }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [votos, setVotos] = useState([]);
     const [revelar, setRevelar] = useState(false);
     const [finalizado, setFinalizado] = useState(false);
     const [mostrarImpostor, setMostrarImpostor] = useState(false);
+    const [qtdVotosFeitos, setQtdVotosFeitos] = useState(0);
+    const [votosJogadorAtual, setVotosJogadorAtual] = useState([]);
 
     console.log(pontos);
 
@@ -15,24 +17,10 @@ const Votacao = ({ jogadores, impostor, pontos, setPontos }) => {
 
     const currentPlayer = jogadores[currentIndex];
     const outrosJogadores = jogadores.filter((j) => j !== currentPlayer);
+    const disponiveis = outrosJogadores.filter(j => !votosJogadorAtual.includes(j));
 
     function handleRevelar() {
         setRevelar(true);
-    }
-
-    function calcularResultado(listaVotos) {
-        const contagem = {};
-
-        listaVotos.forEach((v) => {
-            contagem[v.votouEm] = (contagem[v.votouEm] || 0) + 1;
-        });
-
-        const maior = Math.max(...Object.values(contagem));
-        const maisVotado = Object.keys(contagem).filter(
-            (nome) => contagem[nome] === maior
-        );
-
-        return { maisVotado };
     }
 
     function aplicarPontuacao(listaVotos) {
@@ -42,7 +30,7 @@ const Votacao = ({ jogadores, impostor, pontos, setPontos }) => {
             const novo = { ...prev };
 
             listaVotos.forEach((voto) => {
-                if (voto.votouEm === impostor) {
+                if (impostores.includes(voto.votouEm)) {
                     novo[voto.quemVotou] += 1;
                 }
             });
@@ -52,26 +40,47 @@ const Votacao = ({ jogadores, impostor, pontos, setPontos }) => {
     }
 
     function handleVotar(jogadorVotado) {
-        const novosVotos = [
+        const novosVotosDoJogador = [...votosJogadorAtual, jogadorVotado];
+        setVotosJogadorAtual(novosVotosDoJogador);
+        setQtdVotosFeitos(qtdVotosFeitos + 1);
+        setRevelar(false);
+
+        if (qtdVotosFeitos + 1 < qtdImpostores) {
+            return;
+        }
+
+        const todosVotos = [
             ...votos,
-            { quemVotou: currentPlayer, votouEm: jogadorVotado },
+            ...novosVotosDoJogador.map(v => ({
+                quemVotou: currentPlayer,
+                votouEm: v,
+            }))
         ];
 
-        setVotos(novosVotos);
-        setRevelar(false);
+        setVotos(todosVotos);
+        setQtdVotosFeitos(0);
+        setVotosJogadorAtual([]);
 
         const proximoIndex = currentIndex + 1;
 
         if (proximoIndex < jogadores.length) {
             setCurrentIndex(proximoIndex);
         } else {
-            aplicarPontuacao(novosVotos);
+            aplicarPontuacao(todosVotos);
             setFinalizado(true);
         }
     }
 
     if (finalizado) {
-        const resultado = calcularResultado(votos);
+        const contagem = {};
+        votos.forEach((v) => {
+            contagem[v.votouEm] = (contagem[v.votouEm] || 0) + 1;
+        });
+
+        const maior = Math.max(...Object.values(contagem));
+        const maisVotado = Object.keys(contagem).filter(
+            (nome) => contagem[nome] === maior
+        );
 
         return (
             <div className={styles.containerVote}>
@@ -79,7 +88,7 @@ const Votacao = ({ jogadores, impostor, pontos, setPontos }) => {
                     <h2>Votação Finalizada</h2>
                     <p>
                         Jogadores votaram em:{" "}
-                        <strong>{resultado.maisVotado.join(", ")}</strong>
+                        <strong>{maisVotado.join(", ")}</strong>
                     </p>
                     <button
                         onClick={() => setMostrarImpostor(!mostrarImpostor)}
@@ -92,9 +101,12 @@ const Votacao = ({ jogadores, impostor, pontos, setPontos }) => {
                 </div>
 
                 <div>
-
                     {mostrarImpostor && (
-                        <p className={styles.impostorRevelado}>{impostor}</p>
+                        <div>
+                            {impostores.map((imp) => (
+                                <p key={imp} className={styles.impostorRevelado}>{imp}</p>
+                            ))}
+                        </div>
                     )}
                 </div>
 
@@ -117,10 +129,10 @@ const Votacao = ({ jogadores, impostor, pontos, setPontos }) => {
                 </button>
             ) : (
                 <>
-                    <p>Escolha em quem votar:</p>
+                    <p>Vote na {qtdVotosFeitos + 1}ª pessoa que acha que é impostor:</p>
 
                     <div className={styles.buttonsContainer}>
-                        {outrosJogadores.map((jogador) => (
+                        {disponiveis.map((jogador) => (
                             <button
                                 key={jogador}
                                 onClick={() => handleVotar(jogador)}

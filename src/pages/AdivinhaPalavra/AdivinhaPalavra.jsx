@@ -25,7 +25,7 @@ function gerarOpcoes(palavraCorreta, categoriaSelecionada, jogadores) {
 const AdivinhaPalavra = ({
     palavraCorreta,
     categoriaSelecionada,
-    impostor,
+    impostores,
     pontos,
     setPontos,
     jogadores,
@@ -46,10 +46,13 @@ const AdivinhaPalavra = ({
         if (escolha === palavraCorreta) {
             setResultado("✅ ACERTOU!");
 
-            setPontos((prev) => ({
-                ...prev,
-                [impostor]: (prev[impostor] || 0) + 2,
-            }));
+            setPontos((prev) => {
+                const novo = { ...prev };
+                impostores.forEach((imp) => {
+                    novo[imp] = (novo[imp] || 0) + 2;
+                });
+                return novo;
+            });
         } else {
             setResultado("❌ ERROU!");
         }

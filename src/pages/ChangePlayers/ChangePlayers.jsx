@@ -60,7 +60,7 @@ const ChangePlayers = ({ jogadores, setJogadores, setPontos }) => {
             </div>
 
             {jogadores.length > 0 && (
-                <ButtonNext to="/changecategoria" text="Próximo" />
+                <ButtonNext to="/config" text="Próximo" />
             )}
         </div>
     );
